@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.topicquests.os.asr.driver;
+package org.topicquests.os.asr.driver.sp;
 
 import org.topicquests.os.asr.pd.api.ISentenceParser;
 import org.topicquests.support.RootEnvironment;
@@ -11,11 +11,12 @@ import org.topicquests.support.api.IResult;
  * @author jackpark
  *
  */
-public class SpDriverEnvironment extends RootEnvironment implements ISentenceParser {
+public class SpacyDriverEnvironment extends RootEnvironment implements ISentenceParser {
 
 	/**
+	 * 
 	 */
-	public SpDriverEnvironment() {
+	public SpacyDriverEnvironment() {
 		super("sp-props.xml", "logger.properties");
 		// TODO Auto-generated constructor stub
 	}

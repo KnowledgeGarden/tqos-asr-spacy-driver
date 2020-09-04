@@ -1,4 +1,4 @@
-package devtests;
+package spdevtests;
 
 public class BootTest extends TestRoot {
 

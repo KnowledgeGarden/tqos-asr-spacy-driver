@@ -1,7 +1,7 @@
 /**
  * 
  */
-package devtests;
+package spdevtests;
 
 /**
  * @author jackpark

@@ -12,19 +12,20 @@ import org.topicquests.support.api.IResult;
  *
  */
 public class SpacyDriverEnvironment extends RootEnvironment implements ISentenceParser {
-
+	private ISentenceParser parser;
+	private HttpClient http;
 	/**
 	 * 
 	 */
 	public SpacyDriverEnvironment() {
 		super("sp-props.xml", "logger.properties");
-		// TODO Auto-generated constructor stub
+		http = new HttpClient(this);
+		parser = new SpacyAgent(this, http);
 	}
 
 	@Override
 	public IResult processSentence(String sentence) {
-		// TODO Auto-generated method stub
-		return null;
+		return parser.processSentence(sentence);
 	}
 
 	@Override

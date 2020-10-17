@@ -5,8 +5,8 @@
 
 <properties>
 
-	<parameter name="EidosHost" value="localhost" /> <!-- CHANGE ME -->
-	<parameter name="EidosPort" value="9000" /> 
+	<parameter name="ServerURl" value="192.168.8.7" /> <!--  coordinate with project -->
+	<parameter name="ServerPort" value="5000" /> <!-- coordinate with project -->
 
 	
 </properties>

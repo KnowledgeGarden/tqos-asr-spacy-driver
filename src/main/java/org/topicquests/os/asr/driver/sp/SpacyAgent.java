@@ -22,8 +22,8 @@ public class SpacyAgent implements ISentenceParser {
 	private HttpClient http;
 	private final List<String> models;
 	private final String
-		SERVER,
-		PORT,
+		//SERVER,
+		//PORT,
 		URL;
 
 	/**
@@ -39,16 +39,16 @@ public class SpacyAgent implements ISentenceParser {
 		models.add("en_ner_craft_md");
 		models.add("en_core_web_lg");
 		models.add("en_core_sci_lg");
-		SERVER = environment.getStringProperty("ServerURl");
-		PORT = environment.getStringProperty("ServerPort");
-		URL = "http://"+SERVER+":"+Integer.parseInt(PORT)+"/all";
+		//SERVER = environment.getStringProperty("ServerURl");
+		//PORT = environment.getStringProperty("ServerPort");
+		URL = environment.getStringProperty("ServerURL"); //"http://"+SERVER+":"+Integer.parseInt(PORT)+"/all";
 	}
 
 	@Override
 	public IResult processSentence(String stext) {
 		JSONObject sentence = new JSONObject();
 		sentence.put("text", stext);
-		sentence.put("models", models);
+		//sentence.put("models", models);
 
 		IResult result = new ResultPojo();
 		result.setResultObject(sentence);

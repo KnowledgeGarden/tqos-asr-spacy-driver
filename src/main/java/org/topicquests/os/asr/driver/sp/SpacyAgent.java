@@ -3,6 +3,7 @@
  */
 package org.topicquests.os.asr.driver.sp;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,10 +48,10 @@ public class SpacyAgent implements ISentenceParser {
 	@Override
 	public IResult processSentence(String stext) {
 		JSONObject sentence = new JSONObject();
+		IResult result = new ResultPojo();
 		sentence.put("text", stext);
 		//sentence.put("models", models);
-
-		IResult result = new ResultPojo();
+//environment.logDebug("SpacyAgent\n"+stext);
 		result.setResultObject(sentence);
 		String text = sentence.toJSONString();
 		//TODO may have to url encode this
@@ -58,13 +59,14 @@ public class SpacyAgent implements ISentenceParser {
 		//environment.logDebug("A "+r.getErrorString());
 		//environment.logDebug("B "+r.getResultObject());
 		String json = (String)r.getResultObject();
-		
+environment.logDebug("SpacyAgent-1 "+(json != null)+" "+r.getErrorString());
+	
 		if (json != null) {
 			try {
 				JSONParser p = new JSONParser(JSONParser.MODE_JSON_SIMPLE);
 				JSONObject jo = (JSONObject)p.parse(json);
 				sentence.put("results", jo);
-				sentence.remove("models");
+				//sentence.remove("models");
 
 			} catch (Exception e) {
 				e.printStackTrace();

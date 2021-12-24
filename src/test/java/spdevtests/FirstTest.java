@@ -19,7 +19,7 @@ public class FirstTest extends TestRoot {
 	 */
 	public FirstTest() {
 		super();
-		IResult r = environment.processSentence(P1);
+		IResult r = environment.processParagraph(P1);
 		environment.logDebug("A "+r.getErrorString());
 		environment.logDebug("B "+r.getResultObject());
 		environment.shutDown();

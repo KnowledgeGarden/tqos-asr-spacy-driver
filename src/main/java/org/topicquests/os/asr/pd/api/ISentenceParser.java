@@ -16,8 +16,8 @@ public interface ISentenceParser {
 	 * <p>Results will vary according to the agent used. For instance,
 	 *  SpaCy, Linkgrammar, and Eidos return sentence POS information and related,
 	 *  whereas Indra returns Statements (triples)</p>
-	 * @param sentence
-	 * @return
+	 * @param paragraph
+	 * @return returns a List<JSONObject> of all models
 	 */
-	IResult processSentence(String sentence);
+	IResult processParagraph(String paragrqph);
 }

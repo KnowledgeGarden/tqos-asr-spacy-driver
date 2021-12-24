@@ -24,8 +24,8 @@ public class SpacyDriverEnvironment extends RootEnvironment implements ISentence
 	}
 
 	@Override
-	public IResult processSentence(String sentence) {
-		return parser.processSentence(sentence);
+	public IResult processParagraph(String paragraph) {
+		return parser.processParagraph(paragraph);
 	}
 
 	@Override

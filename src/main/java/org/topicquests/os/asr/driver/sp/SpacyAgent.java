@@ -65,14 +65,12 @@ public class SpacyAgent implements ISentenceParser {
 
 	@Override
 	public IResult processParagraph(String stext) {
-		JSONObject paragraph = new JSONObject();
+		JSONObject paragraph;
 		IResult result = new ResultPojo();
 		List<JSONObject>results = new ArrayList<JSONObject>();
 		result.setResultObject(results);
-		paragraph.put("text", stext);
 		//sentence.put("models", models);
 environment.logDebug("SpacyAgent\n"+stext);
-		result.setResultObject(paragraph);
 		//String text = paragraph.toJSONString();
 		//TODO may have to url encode this
 		List<String> models = modelCollectionOne();
@@ -83,6 +81,8 @@ environment.logDebug("SpacyAgent\n"+stext);
 		String mdl, json;
 		while (itr.hasNext()) {
 			mdl = itr.next();
+			paragraph = new JSONObject();
+			paragraph.put("text", stext);
 			paragraph.put("model", mdl);
 			r = http.put(URL, paragraph.toJSONString());
 			json = (String)r.getResultObject();

@@ -3,9 +3,9 @@
  */
 package org.topicquests.os.asr.driver.sp;
 
-import java.net.URLEncoder;
+//import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Iterator;
+//import java.util.Iterator;
 import java.util.List;
 
 import org.topicquests.os.asr.pd.api.ISentenceParser;
@@ -64,26 +64,25 @@ public class SpacyAgent implements ISentenceParser {
 	
 
 	@Override
-	public IResult processParagraph(String stext) {
+	public IResult processParagraph(String stext, String model) {
 		JSONObject paragraph;
 		IResult result = new ResultPojo();
-		List<JSONObject>results = new ArrayList<JSONObject>();
-		result.setResultObject(results);
+		//result.setResultObject(results);
 		//sentence.put("models", models);
 environment.logDebug("SpacyAgent\n"+stext);
 		//String text = paragraph.toJSONString();
 		//TODO may have to url encode this
-		List<String> models = modelCollectionOne();
+	//	List<String> models = modelCollectionOne();
 		IResult r; //= 
 		//environment.logDebug("SpacyAgent-A "+r.getErrorString());
 		//environment.logDebug("B "+r.getResultObject());
-		Iterator<String>itr = models.iterator();
-		String mdl, json;
-		while (itr.hasNext()) {
-			mdl = itr.next();
+	//	Iterator<String>itr = models.iterator();
+		String json;
+		//while (itr.hasNext()) {
+		//	mdl = itr.next();
 			paragraph = new JSONObject();
 			paragraph.put("text", stext);
-			paragraph.put("model", mdl);
+			paragraph.put("model", model);
 			r = http.put(URL, paragraph.toJSONString());
 			json = (String)r.getResultObject();
 environment.logDebug("SpacyAgent-1 "+(json != null)+" "+r.getErrorString());
@@ -93,7 +92,7 @@ environment.logDebug("SpacyAgent-1 "+(json != null)+" "+r.getErrorString());
 					JSONParser p = new JSONParser(JSONParser.MODE_JSON_SIMPLE);
 					JSONObject jo = (JSONObject)p.parse(json);
 					paragraph.put("results", jo);
-					results.add(paragraph);
+					result.setResultObject(paragraph);
 	
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -101,7 +100,7 @@ environment.logDebug("SpacyAgent-1 "+(json != null)+" "+r.getErrorString());
 					environment.logError(e.getLocalizedMessage(), e);
 				}
 			}
-		}
+		//}
 
 		return result;
 	}

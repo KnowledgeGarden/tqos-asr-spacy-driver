@@ -12,12 +12,9 @@ import org.topicquests.support.api.IResult;
 public interface ISentenceParser {
 
 	/**
-	 * <p>Fundamentally, this returns a JSONObject with the results.</p>
-	 * <p>Results will vary according to the agent used. For instance,
-	 *  SpaCy, Linkgrammar, and Eidos return sentence POS information and related,
-	 *  whereas Indra returns Statements (triples)</p>
-	 * @param paragraph
-	 * @return returns a List<JSONObject> of all models
+	 * 
+	 * @param stext = a JSON string
+	 * @return returns a JSONObject
 	 */
-	IResult processParagraph(String paragrqph);
+	IResult processParagraph(String stext, String model);
 }

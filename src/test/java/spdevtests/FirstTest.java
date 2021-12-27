@@ -11,6 +11,7 @@ import org.topicquests.support.api.IResult;
  */
 public class FirstTest extends TestRoot {
 	private final String
+		MODEL = "FixMe",
 		S1 = "NFIL3 is a transcription factor, a protein that switches certain genes on and off. Earlier studies had focused on its role in immune cells, but a team led by Lora Hooper at the University of Texas Southwestern Medical Center, Dallas, discovered that NFIL3 is also found in cells in the inner lining, or epithelium, of the mouse small intestine.",
 		S2 = " Left ventricular (LV) hypertrabeculation fulfilling noncompaction cardiomyopathy criteria has been detected in athletes. ",
 		P1 = "The molecular weight of single-stranded DNA from the slime mold Physarum polycephalum has been determined by alkaline gradient centrifugation. The average molecular weight during DNA synthesis (∼1.5 × 107 D) is less than that observed in nonsynthetic periods (∼4 × 107 D). On the basis of a chromosome number of 50 per nucleus and a DNA content of 1 μμg per nucleus, we are led to conclude that at pH 12 each chromosome dissociates into 300 (single-stranded) pieces of DNA. We have also compared the sedimentation profiles of single-stranded DNA from Escherichia coli, PPLO, and T2 bacteriophage. These data support the conjecture that each bacterial chromosome can be dissociated into 10 or 12 single-stranded pieces of DNA. Dissociation of DNA into multiple pieces under our experimental conditions is best interpreted in terms of interruptions in the continuity of the DNA either by naturally occurring gaps or at alkali-labile bonds.";
@@ -19,7 +20,7 @@ public class FirstTest extends TestRoot {
 	 */
 	public FirstTest() {
 		super();
-		IResult r = environment.processParagraph(P1);
+		IResult r = environment.processParagraph(P1, MODEL);
 		environment.logDebug("A "+r.getErrorString());
 		environment.logDebug("B "+r.getResultObject());
 		environment.shutDown();

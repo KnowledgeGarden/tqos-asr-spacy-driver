@@ -16,5 +16,5 @@ public interface ISentenceParser {
 	 * @param stext = a JSON string
 	 * @return returns a JSONObject
 	 */
-	IResult processParagraph(String stext, String model);
+	IResult processParagraph(String stext);
 }

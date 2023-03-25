@@ -1,11 +1,23 @@
-/**
- * 
+/*
+ * Copyright 2022 TopicQuests
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions
+ * and limitations under the License.
  */
 package org.topicquests.os.asr.driver.sp;
 
 //import java.net.URLEncoder;
 import java.util.ArrayList;
-//import java.util.Iterator;
+import java.util.Iterator;
 import java.util.List;
 
 import org.topicquests.os.asr.pd.api.ISentenceParser;
@@ -64,7 +76,8 @@ public class SpacyAgent implements ISentenceParser {
 	
 
 	@Override
-	public IResult processParagraph(String stext, String model) {
+	public IResult processParagraph(String stext) {
+		long starttime = System.currentTimeMillis();
 		JSONObject paragraph;
 		IResult result = new ResultPojo();
 		//result.setResultObject(results);
@@ -72,36 +85,29 @@ public class SpacyAgent implements ISentenceParser {
 environment.logDebug("SpacyAgent\n"+stext);
 		//String text = paragraph.toJSONString();
 		//TODO may have to url encode this
-	//	List<String> models = modelCollectionOne();
+		List<String> models = modelCollectionOne();
 		IResult r; //= 
-		//environment.logDebug("SpacyAgent-A "+r.getErrorString());
-		//environment.logDebug("B "+r.getResultObject());
-	//	Iterator<String>itr = models.iterator();
-		String json;
-		//while (itr.hasNext()) {
-		//	mdl = itr.next();
+		Iterator<String>itr = models.iterator();
+		String json, mdl;
+		List<String> sentences = new ArrayList<String>();
+		result.setResultObject(sentences);
+		while (itr.hasNext()) {
+			mdl = itr.next();
 			paragraph = new JSONObject();
 			paragraph.put("text", stext);
-			paragraph.put("model", model);
+			paragraph.put("model", mdl);
 			r = http.put(URL, paragraph.toJSONString());
 			json = (String)r.getResultObject();
 environment.logDebug("SpacyAgent-1 "+(json != null)+" "+r.getErrorString());
 	
 			if (json != null) {
-				try {
-					JSONParser p = new JSONParser(JSONParser.MODE_JSON_SIMPLE);
-					JSONObject jo = (JSONObject)p.parse(json);
-					paragraph.put("results", jo);
-					result.setResultObject(paragraph);
-	
-				} catch (Exception e) {
-					e.printStackTrace();
-					result.addErrorString(e.getLocalizedMessage());
-					environment.logError(e.getLocalizedMessage(), e);
-				}
-			}
-		//}
+				sentences.add(json);
 
+			}
+		}
+		long endTime = System.currentTimeMillis();
+		long delta = (endTime-starttime)/1000;
+		environment.logDebug("Finished in "+delta+" seconds");
 		return result;
 	}
 

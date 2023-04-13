@@ -18,7 +18,7 @@ public class SpacyDriverEnvironment extends RootEnvironment implements ISentence
 	 * 
 	 */
 	public SpacyDriverEnvironment() {
-		super("sp-props.xml", "logger.properties");
+		super("sp-props.xml");
 		http = new HttpClient(this);
 		parser = new SpacyAgent(this, http);
 	}

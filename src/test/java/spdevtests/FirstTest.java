@@ -3,7 +3,13 @@
  */
 package spdevtests;
 
+import java.util.ArrayList;
+
 import org.topicquests.support.api.IResult;
+
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
 
 /**
  * @author jackpark
@@ -14,19 +20,36 @@ public class FirstTest extends TestRoot {
 		MODEL = "FixMe",
 		S1 = "NFIL3 is a transcription factor, a protein that switches certain genes on and off. Earlier studies had focused on its role in immune cells, but a team led by Lora Hooper at the University of Texas Southwestern Medical Center, Dallas, discovered that NFIL3 is also found in cells in the inner lining, or epithelium, of the mouse small intestine.",
 		S2 = " Left ventricular (LV) hypertrabeculation fulfilling noncompaction cardiomyopathy criteria has been detected in athletes. ",
-		P1 = "The molecular weight of single-stranded DNA from the slime mold Physarum polycephalum has been determined by alkaline gradient centrifugation. The average molecular weight during DNA synthesis (∼1.5 × 107 D) is less than that observed in nonsynthetic periods (∼4 × 107 D). On the basis of a chromosome number of 50 per nucleus and a DNA content of 1 μμg per nucleus, we are led to conclude that at pH 12 each chromosome dissociates into 300 (single-stranded) pieces of DNA. We have also compared the sedimentation profiles of single-stranded DNA from Escherichia coli, PPLO, and T2 bacteriophage. These data support the conjecture that each bacterial chromosome can be dissociated into 10 or 12 single-stranded pieces of DNA. Dissociation of DNA into multiple pieces under our experimental conditions is best interpreted in terms of interruptions in the continuity of the DNA either by naturally occurring gaps or at alkali-labile bonds.";
+		P1 = "The molecular weight of single-stranded DNA from the slime mold Physarum polycephalum has been determined by alkaline gradient centrifugation. The average molecular weight during DNA synthesis (∼1.5 × 107 D) is less than that observed in nonsynthetic periods (∼4 × 107 D). On the basis of a chromosome number of 50 per nucleus and a DNA content of 1 μμg per nucleus, we are led to conclude that at pH 12 each chromosome dissociates into 300 (single-stranded) pieces of DNA. We have also compared the sedimentation profiles of single-stranded DNA from Escherichia coli, PPLO, and T2 bacteriophage. These data support the conjecture that each bacterial chromosome can be dissociated into 10 or 12 single-stranded pieces of DNA. Dissociation of DNA into multiple pieces under our experimental conditions is best interpreted in terms of interruptions in the continuity of the DNA either by naturally occurring gaps or at alkali-labile bonds.",
+		S5  ="Climate change is not caused by elephants";
+
 	/**
 	 * 
 	 */
 	public FirstTest() {
 		super();
-		IResult r = environment.processParagraph(P1);
+		IResult r = environment.processParagraph(S5);
 		environment.logDebug("A "+r.getErrorString());
 		environment.logDebug("B "+r.getResultObject());
+		if (r.getResultObject() != null)
+			getSentences((ArrayList)r.getResultObject());
 		environment.shutDown();
 		System.exit(0);
 	}
 
+	void getSentences(ArrayList json) {
+		System.out.println("PPP "+json);
+		JSONArray result =null;
+		String jjj = (String)json.get(0);
+		try {
+			JSONParser p = new JSONParser(JSONParser.MODE_JSON_SIMPLE);
+			JSONObject jo = (JSONObject)p.parse(jjj);
+			JSONArray ja = (JSONArray)jo.get("sentences");
+			environment.logDebug("Sentencex\n"+ja);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
 /**
 {

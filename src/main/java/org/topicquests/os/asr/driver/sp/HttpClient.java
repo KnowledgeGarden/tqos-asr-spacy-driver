@@ -55,6 +55,7 @@ public class HttpClient {
 			while (code != HttpURLConnection.HTTP_OK && counter < 4) {
 				environment.logDebug("COUNT "+counter + " "+ code);
 				try {
+					//String enc  = URLEncoder.encode(queryString, "UTF-8");
 					con = (HttpURLConnection) urx.openConnection();
 					//con.setReadTimeout(TIMEOUT);
 					con.setRequestProperty("Content-Type", "application/json; charset=utf-8");
@@ -68,6 +69,7 @@ public class HttpClient {
 					p.close();
 					code = con.getResponseCode();
 					environment.logDebug("HttpClient.codeA "+code);
+					counter++;
 				} catch (Exception x) {
 					environment.logError(x.getMessage()+" Count="+counter, x);
 					try {

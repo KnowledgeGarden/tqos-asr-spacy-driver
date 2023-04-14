@@ -104,10 +104,11 @@ public class SpacyAgent implements ISentenceParser {
 				paragraph.put("model", mdl);
 				r = http.put(URL, paragraph.toJSONString());
 				json = (String)r.getResultObject();
-				jo = parseJsonObject(json);
-				environment.logDebug("SpacyAgent-1\n"+jo);
 		
 				if (json != null) {
+					jo = parseJsonObject(json);
+					environment.logDebug("SpacyAgent-1\n"+jo);
+
 					sentences.add(jo);
 	
 				}

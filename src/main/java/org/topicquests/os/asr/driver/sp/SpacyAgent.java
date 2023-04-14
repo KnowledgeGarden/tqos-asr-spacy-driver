@@ -24,6 +24,10 @@ import org.topicquests.os.asr.pd.api.ISentenceParser;
 import org.topicquests.support.ResultPojo;
 import org.topicquests.support.api.IResult;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 
@@ -82,28 +86,35 @@ public class SpacyAgent implements ISentenceParser {
 		IResult result = new ResultPojo();
 		//result.setResultObject(results);
 		//sentence.put("models", models);
-environment.logDebug("SpacyAgent\n"+stext);
+		environment.logDebug("SpacyAgent\n"+stext);
 		//String text = paragraph.toJSONString();
 		//TODO may have to url encode this
 		List<String> models = modelCollectionOne();
 		IResult r; //= 
 		Iterator<String>itr = models.iterator();
 		String json, mdl;
-		List<String> sentences = new ArrayList<String>();
+		JsonArray sentences = new JsonArray();;
 		result.setResultObject(sentences);
-		while (itr.hasNext()) {
-			mdl = itr.next();
-			paragraph = new JSONObject();
-			paragraph.put("text", stext);
-			paragraph.put("model", mdl);
-			r = http.put(URL, paragraph.toJSONString());
-			json = (String)r.getResultObject();
-environment.logDebug("SpacyAgent-1 "+(json != null)+" "+r.getErrorString());
+		JsonObject jo;
+		try {
+			while (itr.hasNext()) {
+				mdl = itr.next();
+				paragraph = new JSONObject();
+				paragraph.put("text", stext);
+				paragraph.put("model", mdl);
+				r = http.put(URL, paragraph.toJSONString());
+				json = (String)r.getResultObject();
+				jo = parseJsonObject(json);
+				environment.logDebug("SpacyAgent-1\n"+jo);
+		
+				if (json != null) {
+					sentences.add(jo);
 	
-			if (json != null) {
-				sentences.add(json);
-
+				}
 			}
+		} catch (Exception e) {
+			environment.logError("SpacyAgent "+e.getMessage(),e);
+			result.addErrorString(e.getMessage());
 		}
 		long endTime = System.currentTimeMillis();
 		long delta = (endTime-starttime)/1000;
@@ -111,4 +122,7 @@ environment.logDebug("SpacyAgent-1 "+(json != null)+" "+r.getErrorString());
 		return result;
 	}
 
+	JsonObject parseJsonObject(String json)  throws Exception {
+		return (JsonObject)JsonParser.parseString(json);
+	}
 }

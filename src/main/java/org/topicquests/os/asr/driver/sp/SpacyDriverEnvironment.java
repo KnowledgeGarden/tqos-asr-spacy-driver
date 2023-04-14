@@ -25,6 +25,7 @@ public class SpacyDriverEnvironment extends RootEnvironment implements ISentence
 
 	@Override
 	public IResult processParagraph(String paragraph) {
+		logDebug("SpacyStarting "+paragraph);
 		return parser.processParagraph(paragraph);
 	}
 
